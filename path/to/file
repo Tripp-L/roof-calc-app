@@ -1,0 +1,12 @@
+<div class="home-type-section">
+  <div class="home-type-option">
+    <input type="radio" id="2-story" name="home-type" value="2-story">
+    <label for="2-story">2-Story Home (+$/sq)</label>
+    <span class="price">$ 5</span>
+  </div>
+  <div class="home-type-option">
+    <input type="radio" id="3-story" name="home-type" value="3-story">
+    <label for="3-story">3-Story Home (+$/sq)</label>
+    <span class="price">$ 35</span>
+  </div>
+</div>

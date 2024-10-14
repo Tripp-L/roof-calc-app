@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ... existing head content ... -->
+</head>
+<body>
+    <!-- ... other calculator elements ... -->
+
+    <div class="calculator-section">
+        <h2>Home Details</h2>
+        <!-- ... other home detail inputs ... -->
+
+        <div class="form-group">
+            <label>Home Stories:</label>
+            <div class="radio">
+                <label>
+                    <input type="radio" name="homeStories" value="2" data-price="5">
+                    2-Story Home (+$5/sq)
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    <input type="radio" name="homeStories" value="3" data-price="35">
+                    3-Story Home (+$35/sq)
+                </label>
+            </div>
+        </div>
+
+        <!-- ... other calculator sections ... -->
+    </div>
+
+    <script>
+        function updateHomeValue(input) {
+            if (input.value < 0) input.value = 0;
+            input.parentNode.nextElementSibling.textContent = '$' + input.value;
+        }
+    </script>
+</body>
+</html>

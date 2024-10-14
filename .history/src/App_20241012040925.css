@@ -1,0 +1,95 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+input:focus, select:focus {
+  outline: none;
+}
+
+.price-input-container {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.price-symbol {
+  padding-left: 8px;
+  color: #666;
+}
+
+.price-input {
+  border: none;
+  outline: none;
+  padding: 8px;
+  width: 60px;
+  font-size: 16px;
+  text-align: left;
+}
+
+.price-input::-webkit-inner-spin-button,
+.price-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.App {
+  /* Add styles for the .App class here */
+}
+
+.sqft-input {
+  width: 10%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.waste-select {
+  width: 10%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.warranty-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.warranty-price-container {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.dollar-sign {
+  margin-right: 5px;
+  font-weight: bold;
+}
+
+.warranty-price-adjust {
+  padding: 5px;
+}
+
+.warranty-price-adjust::before {
+  content: "+";
+  margin-right: 5px;
+}
+
+.warranty-adjust {
+  margin-left: 10px;
+}
+
+.warranty-adjust select {
+  margin-left: 5px;
+}

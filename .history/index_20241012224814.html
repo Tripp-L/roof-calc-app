@@ -1,0 +1,14 @@
+<body>
+  <!-- Your HTML content -->
+
+  <script>
+    // ... other JavaScript functions ...
+
+    function updateHomeValue(input) {
+      if (input.value < 0) input.value = 0;
+      input.parentNode.nextElementSibling.textContent = '$' + input.value;
+    }
+
+    // ... more JavaScript code if needed ...
+  </script>
+</body>

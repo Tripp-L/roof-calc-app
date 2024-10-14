@@ -1,0 +1,38 @@
+<body>
+  <!-- Your HTML content -->
+
+  <div class="input-group">
+    <label>
+      <input type="radio" name="homeType" value="2-Story">
+      2-Story Home (+$/sq)
+    </label>
+    <div class="number-input">
+      <input type="number" min="0" value="5" onchange="updateHomeValue(this)">
+    </div>
+    <span class="price-display">$5</span>
+  </div>
+
+  <div class="input-group">
+    <label>
+      <input type="radio" name="homeType" value="3-Story">
+      3-Story Home (+$/sq)
+    </label>
+    <div class="number-input">
+      <input type="number" min="0" value="35" onchange="updateHomeValue(this)">
+    </div>
+    <span class="price-display">$35</span>
+  </div>
+
+  <!-- More of your existing HTML content -->
+
+  <script>
+    // ... other JavaScript functions ...
+
+    function updateHomeValue(input) {
+      if (input.value < 0) input.value = 0;
+      input.parentNode.nextElementSibling.textContent = '$' + input.value;
+    }
+
+    // ... more JavaScript code if needed ...
+  </script>
+</body>

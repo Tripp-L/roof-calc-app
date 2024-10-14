@@ -1,0 +1,9 @@
+{
+    "cSpell.words": [
+        "tailwindcss"
+    ],
+    "dependencies": {
+        "postcss": "^8.4.47",
+        "tailwindcss-version": "^3.4.13"
+    }
+}

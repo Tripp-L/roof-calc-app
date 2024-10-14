@@ -1,0 +1,17 @@
+.input-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.input-group input[type="number"] {
+  margin-left: 10px;
+  padding: 5px;
+  width: 60px;
+  text-align: right;
+}
+
+.input-group input[type="number"]::-webkit-inner-spin-button,
+.input-group input[type="number"]::-webkit-outer-spin-button {
+  opacity: 1;
+}

@@ -1,0 +1,28 @@
+<body>
+  <!-- Your HTML content -->
+
+  <div class="input-group">
+    <label>
+      <input type="radio" name="homeType" value="2-Story">
+      2-Story Home (+$/sq)
+    </label>
+    <input type="text" value="$ 5" readonly>
+  </div>
+
+  <div class="input-group">
+    <label>
+      <input type="radio" name="homeType" value="3-Story">
+      3-Story Home (+$/sq)
+    </label>
+    <input type="text" value="$ 35" readonly>
+  </div>
+
+  <!-- More of your existing HTML content -->
+
+  <script>
+    function updateHomeValue(input) {
+      if (input.value < 0) input.value = 0;
+      input.parentNode.nextElementSibling.textContent = '$' + input.value;
+    }
+  </script>
+</body>

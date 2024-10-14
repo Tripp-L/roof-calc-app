@@ -1,0 +1,191 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+input:focus, select:focus {
+  outline: none;
+}
+
+.price-input-container {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.price-symbol {
+  padding-left: 8px;
+  color: #666;
+}
+
+.price-input {
+  border: none;
+  outline: none;
+  padding: 8px;
+  width: 60px;
+  font-size: 16px;
+  text-align: left;
+}
+
+.price-input::-webkit-inner-spin-button,
+.price-input::-webkit-outer-spin-button {
+  opacity: 1;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  max-width: 100%;
+  padding: 20px;
+  font-size: 16px;
+  line-height: 1.5;
+  touch-action: manipulation;
+}
+
+@media (min-width: 768px) {
+  .App {
+    max-width: 90%;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 1024px) {
+  .App {
+    max-width: 1200px;
+  }
+}
+
+.App input,
+.App select,
+.App button {
+  font-size: 16px;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.App button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.App button:hover,
+.App button:focus {
+  background-color: #0056b3;
+}
+
+.App label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.sqft-input {
+  width: 10%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.waste-select {
+  width: 10%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.warranty-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.warranty-price-container {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.dollar-sign {
+  margin-right: 5px;
+  font-weight: bold;
+}
+
+.warranty-price-adjust {
+  padding: 5px;
+}
+
+.warranty-price-adjust::before {
+  content: "+";
+  margin-right: 5px;
+}
+
+.warranty-adjust {
+  margin-left: 10px;
+}
+
+.warranty-adjust select {
+  margin-left: 5px;
+}
+
+.keypad button:last-child {
+  grid-column: span 4;
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.digits button:last-child {
+  background-color: #f0f0f0;
+  color: #333;
+  grid-column: span 2;
+}
+
+.home-type-section {
+  margin-bottom: 20px;
+}
+
+.home-type-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.home-type-options label {
+  display: flex;
+  align-items: center;
+}
+
+.price-input {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 5px;
+}
+
+.price-input span {
+  margin-right: 5px;
+}
+
+.price-input input {
+  border: none;
+  outline: none;
+  width: 60px;
+}

@@ -11,13 +11,15 @@ body {
 }
 
 .input-group {
+  display: grid;
+  grid-template-columns: 100px 1fr 80px;
+  align-items: center;
+  gap: 10px;
   margin-bottom: 15px;
 }
 
 .input-group label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
+  margin-right: 0;
 }
 
 /* Style for the previously longer inputs */
@@ -53,7 +55,7 @@ body {
 
 .input-group select,
 .pitch-price-input input {
-  width: 100%;
+  width: 150px; /* Reduced from 100% */
   height: 48.5px;
   background-color: #2d2d2d;
   color: white;
@@ -71,8 +73,7 @@ body {
 .home-type-price-input {
   display: flex;
   align-items: center;
-  margin-top: 1px;
-  margin-bottom: 10px;
+  width: 100%;
 }
 
 .dollar-sign {
@@ -240,62 +241,187 @@ h1 {
   margin-top: 5px;
 }
 
-.price-input-wrapper input {
+.price-input-wrapper input[type="number"] {
   width: 60px;
-  height: 24px;
-  background-color: #2d2d2d;
-  color: white;
-  border: 1px solid #444;
-  padding: 0 5px;
-  font-size: 14px;
+  margin-right: 5px;
 }
 
-.price-input-wrapper span:last-child {
-  color: #ccc;
-  margin-left: 2px;
+.price-input-wrapper span {
+  margin-left: 5px;
 }
 
 .results-container {
-  display: flex;
-  flex-direction: column;
-  background-color: #2d2d2d;
-  padding: 15px;
-  border-radius: 8px;
-  margin-top: 20px;
+  background-color: #2a2a2a;
+  padding: 10px; /* Further reduced padding */
+  border-radius: 5px;
+  margin-top: 12px; /* Slightly reduced top margin */
 }
 
 .results {
-  margin-bottom: 15px;
+  margin-bottom: 8px; /* Reduced margin */
 }
 
 .results p {
-  margin: 5px 0;
-  font-size: 16px;
+  margin: 2px 0; /* Reduced margin */
+  font-size: 16px; /* Increased font size */
   color: #ffffff;
-}
-
-.results p:first-child {
-  margin-bottom: 10px;
+  font-weight: 600; /* Made text slightly bolder */
 }
 
 .clear-button {
-  width: 100%;
-  padding: 10px 0;
-  background-color: #dc3545;  /* Changed to red */
-  color: white;
+  width: auto; /* Changed from 100% to auto */
+  padding: 6px 10px; /* Added horizontal padding */
+  background-color: transparent; /* Removed background color */
+  color: #dc3545; /* Changed to red color */
   border: none;
-  border-radius: 4px;
   font-size: 16px;
   font-weight: bold;
   text-transform: uppercase;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: color 0.3s ease;
 }
 
 .clear-button:hover {
-  background-color: #c82333;  /* Darker red on hover */
+  color: #c82333; /* Darker red on hover */
 }
 
 .clear-button:active {
-  background-color: #bd2130;  /* Even darker red when active */
+  color: #bd2130; /* Even darker red when active */
+}
+
+/* Adjust the results container to align the button to the right */
+.results-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.results {
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.selected-adder .adder-input-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.selected-adder input[type="number"] {
+  width: 60px;
+  margin-right: 5px;
+}
+
+.selected-adder span {
+  margin-right: 10px;
+}
+
+.remove-adder {
+  background: none !important;
+  border: none;
+  color: white;
+  font-size: 1.2em;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 10px;
+  line-height: 1;
+}
+
+.remove-adder:hover {
+  color: #ff4d4d; /* Light red color on hover */
+}
+
+.adder-input-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.selected-adder input[type="number"] {
+  width: 60px;
+  margin-right: 5px;
+}
+
+.selected-adder span {
+  margin-right: 10px;
+}
+
+/* Add this new class */
+.horizontal-inputs {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px; /* Adjust as needed */
+}
+
+/* Modify the existing .input-group class */
+.input-group {
+  display: grid;
+  grid-template-columns: 100px 1fr 80px;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+/* Add this new class for the horizontal input groups */
+.horizontal-input-group {
+  width: 30%; /* Adjust this value to control spacing between inputs */
+}
+
+.horizontal-input-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.horizontal-input-group input[type="number"] {
+  width: 100%; /* Make the input fill its container */
+}
+
+/* Adjust the width of select dropdowns */
+.input-group select {
+  width: 100%;
+  height: 48.5px;
+  background-color: #2d2d2d;
+  color: white;
+  border: 1px solid #444;
+  padding: 2px 8px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 30px;
+  box-sizing: border-box;
+}
+
+/* Adders dropdown */
+.input-group:last-of-type select {
+  width: 100%; /* Full width for Adders dropdown */
+}
+
+/* Adjust the price input wrappers */
+.pitch-price-input,
+.warranty-price-input,
+.home-type-price-input {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+/* Adjust the width of the price inputs */
+.pitch-price-input input,
+.warranty-price-input input,
+.home-type-price-input input {
+  width: 100%;
+  height: 48.5px;
+  background-color: #2d2d2d;
+  color: white;
+  border: 1px solid #444;
+  padding: 0 8px;
+  font-size: 14px;
+  line-height: 48.5px;
+  box-sizing: border-box;
+}
+
+/* Adders dropdown */
+.input-group:last-of-type {
+  grid-template-columns: 100px 1fr;
+}
+
+.input-group:last-of-type select {
+  grid-column: 2 / -1;
 }

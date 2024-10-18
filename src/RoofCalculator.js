@@ -18,6 +18,7 @@ const RoofCalculator = () => {
   const [squares, setSquares] = useState(0);  // Initialize squares to 0
   const [totalPrice, setTotalPrice] = useState(0);
   const [pitchPrice, setPitchPrice] = useState('0');
+  const [selectedAdders, setSelectedAdders] = useState({});
 
   // Define default values
   const defaultValues = {
@@ -88,12 +89,11 @@ const RoofCalculator = () => {
     // Add warranty price
     total += adjustedSquares * (parseFloat(warrantyPrice) || 0);
 
-    // Add adder price
-    if (adder !== 'none') {
-      const adderPrice = parseFloat(adderOptions[adder].price);
-      const quantity = parseInt(adderQuantity) || 0;
+    // Add adder prices
+    Object.entries(selectedAdders).forEach(([adderKey, quantity]) => {
+      const adderPrice = parseFloat(adderOptions[adderKey].price);
       total += adderPrice * quantity;
-    }
+    });
 
     setTotalPrice(Math.round(total * 100) / 100); // Round to 2 decimal places
     setSquares(adjustedSquares);
@@ -102,7 +102,7 @@ const RoofCalculator = () => {
   // Call calculateTotal whenever any input changes
   useEffect(() => {
     calculateTotal();
-  }, [sqFt, waste, pricePerSq, pitchPrice, homeTypePrice, warrantyPrice, adder, adderQuantity]);
+  }, [sqFt, waste, pricePerSq, pitchPrice, homeTypePrice, warrantyPrice, selectedAdders]);
 
   // Debounced calculation function
   const debouncedCalculate = debounce(calculateTotal, 300);
@@ -263,28 +263,45 @@ const RoofCalculator = () => {
 
   const handleAdderChange = (e) => {
     const selectedAdder = e.target.value;
-    setAdder(selectedAdder);
-    setAdderQuantity(selectedAdder === 'none' ? '0' : '1');
+    if (selectedAdder !== 'none') {
+      setSelectedAdders(prev => ({
+        ...prev,
+        [selectedAdder]: 1
+      }));
+    }
     calculateTotal();
   };
 
-  const handleAdderQuantityChange = (e) => {
-    const value = e.target.value;
+  const handleAdderQuantityChange = (adderKey, value) => {
     if (value === '' || (!isNaN(value) && parseInt(value) >= 0)) {
-      setAdderQuantity(value);
+      setSelectedAdders(prev => ({
+        ...prev,
+        [adderKey]: value
+      }));
       calculateTotal();
     }
   };
 
-  const handleAdderQuantityBlur = () => {
-    let value = parseInt(adderQuantity);
+  const handleAdderQuantityBlur = (adderKey) => {
+    let value = parseInt(selectedAdders[adderKey]);
     if (isNaN(value) || value < 0) {
-      setAdderQuantity('0');
+      value = 0;
     } else if (value > 1000) {
-      setAdderQuantity('1000');
-    } else {
-      setAdderQuantity(value.toString());
+      value = 1000;
     }
+    setSelectedAdders(prev => ({
+      ...prev,
+      [adderKey]: value.toString()
+    }));
+    calculateTotal();
+  };
+
+  const removeAdder = (adderKey) => {
+    setSelectedAdders(prev => {
+      const newAdders = { ...prev };
+      delete newAdders[adderKey];
+      return newAdders;
+    });
     calculateTotal();
   };
 
@@ -315,40 +332,45 @@ const RoofCalculator = () => {
     <div className="calculator">
       <h1>Roof Calculator</h1>
       
-      <div className="input-group">
-        <label>Price/Sq ($)</label>
-        <input 
-          type="number" 
-          value={pricePerSq} 
-          onChange={handlePricePerSqChange}
-          onBlur={handlePricePerSqBlur}
-          min="50"
-          max="1000"
-          step="1"
-        />
-      </div>
+      <div className="horizontal-inputs">
+        <div className="horizontal-input-group">
+          <label>Price/Sq ($)</label>
+          <input 
+            type="number" 
+            value={pricePerSq} 
+            onChange={handlePricePerSqChange}
+            onBlur={handlePricePerSqBlur}
+            min="50"
+            max="1000"
+            step="1"
+          />
+        </div>
 
-      <MemoizedInputGroup 
-        label="Sq/ft" 
-        value={sqFt} 
-        onChange={handleSqFtChange}
-        type="number"
-        min="100"
-        max="100000"
-        step="1"
-      />
+        <div className="horizontal-input-group">
+          <label>Sq/ft</label>
+          <input 
+            type="number"
+            value={sqFt} 
+            onChange={handleSqFtChange}
+            onBlur={handleSqFtBlur}
+            min="100"
+            max="100000"
+            step="1"
+          />
+        </div>
 
-      <div className="input-group">
-        <label>Waste (%)</label>
-        <input 
-          type="number" 
-          value={waste} 
-          onChange={handleWasteChange}
-          onBlur={handleWasteBlur}
-          min="0"
-          max="50"
-          step="5"
-        />
+        <div className="horizontal-input-group">
+          <label>Waste (%)</label>
+          <input 
+            type="number" 
+            value={waste} 
+            onChange={handleWasteChange}
+            onBlur={handleWasteBlur}
+            min="0"
+            max="50"
+            step="5"
+          />
+        </div>
       </div>
 
       <div className="input-group">
@@ -358,8 +380,8 @@ const RoofCalculator = () => {
             <option key={key} value={key}>{key}</option>
           ))}
         </select>
-        <div className="pitch-price-input">
-          <span className="dollar-sign">$</span>
+        <div className="price-input-wrapper">
+          <span>$</span>
           <input 
             type="number" 
             value={pitchPrice} 
@@ -380,8 +402,8 @@ const RoofCalculator = () => {
             <option key={key} value={key}>{key}</option>
           ))}
         </select>
-        <div className="warranty-price-input">
-          <span className="dollar-sign">$</span>
+        <div className="price-input-wrapper">
+          <span>$</span>
           <input 
             type="number" 
             value={warrantyPrice} 
@@ -407,7 +429,7 @@ const RoofCalculator = () => {
           ))}
         </select>
         <div className="price-input-wrapper">
-          <span className="dollar-sign">$</span>
+          <span>$</span>
           <input 
             type="number" 
             value={homeTypePrice} 
@@ -423,28 +445,36 @@ const RoofCalculator = () => {
 
       <div className="input-group">
         <label>Adders</label>
-        <select value={adder} onChange={handleAdderChange}>
+        <select value="none" onChange={handleAdderChange}>
+          <option value="none">Select an Adder</option>
           {Object.entries(adderOptions).map(([key, { label, price, unit }]) => (
-            <option key={key} value={key}>
-              {key === 'none' ? label : `${label} ($${price}/${unit})`}
-            </option>
+            key !== 'none' && (
+              <option key={key} value={key}>
+                {`${label} ($${price}/${unit})`}
+              </option>
+            )
           ))}
         </select>
-        {adder !== 'none' && (
-          <div className="price-input-wrapper">
+      </div>
+
+      {Object.entries(selectedAdders).map(([adderKey, quantity]) => (
+        <div key={adderKey} className="input-group selected-adder">
+          <label>{adderOptions[adderKey].label}</label>
+          <div className="adder-input-wrapper">
             <input 
               type="number" 
-              value={adderQuantity} 
-              onChange={handleAdderQuantityChange}
-              onBlur={handleAdderQuantityBlur}
+              value={quantity} 
+              onChange={(e) => handleAdderQuantityChange(adderKey, e.target.value)}
+              onBlur={() => handleAdderQuantityBlur(adderKey)}
               min="0"
               max="1000"
               step="1"
             />
-            <span>{adderOptions[adder].unit}(s)</span>
+            <span>{adderOptions[adderKey].unit}(s)</span>
+            <button className="remove-adder" onClick={() => removeAdder(adderKey)}>×</button>
           </div>
-        )}
-      </div>
+        </div>
+      ))}
 
       <div className="results-container">
         <div className="results">

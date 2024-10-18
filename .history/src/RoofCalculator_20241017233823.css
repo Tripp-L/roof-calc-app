@@ -1,0 +1,392 @@
+body {
+  background-color: #1e1e1e;
+  color: #ffffff;
+  font-family: Arial, sans-serif;
+}
+
+.calculator {
+  max-width: 600px; /* Adjust as needed */
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  justify-content: space-between;
+}
+
+.input-group label {
+  width: 100px; /* Adjusted for better alignment */
+  margin-right: 10px;
+}
+
+/* Style for the previously longer inputs */
+.input-group input[type="number"] {
+  width: 84px;
+  height: 37px;
+  background-color: #2d2d2d;
+  color: white;
+  border: 1px solid #444;
+  padding: 2 8px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 22px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+/* Style for select dropdowns and pitch price input */
+.input-group select,
+.warranty-price-input input,
+.home-type-price-input input {
+    width: 100%;
+    height: 30px;
+    background-color: #2d2d2d;
+    color: white;
+    border: 1px solid #444;
+    padding: 0 8px;
+    font-size: 14px;
+    line-height: 30px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+.input-group select,
+.pitch-price-input input {
+  width: 100%;
+  height: 48.5px;
+  background-color: #2d2d2d;
+  color: white;
+  border: 1px solid #444;
+  padding: 2 8px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 30px;
+  box-sizing: border-box;
+}
+
+
+.pitch-price-input,
+.warranty-price-input,
+.home-type-price-input {
+  display: flex;
+  align-items: center;
+  margin-top: 1px;
+  margin-bottom: 10px;
+}
+
+.dollar-sign {
+  color: #ccc;
+  margin-right: 2px;
+}
+
+label {
+  display: block;
+  margin-bottom: 20px;
+}
+
+input, select {
+  width: 100%;
+  padding: 8px;
+  background-color: #2d2d2d;
+  border: 1px solid #3d3d3d;
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+
+.results {
+  margin-top: 20px;
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 25px;
+}
+
+.calculator-section {
+  margin-bottom: 20px;
+}
+
+.price-input-container {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.price-symbol {
+  padding: 0 8px;
+  background-color: #f0f0f0;
+  color: #666;
+}
+
+.price-input {
+  width: 60px;
+  border: none;
+  padding: 8px;
+  text-align: right;
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.total {
+  background-color: #f0f0f0;
+  padding: 15px;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 25px;
+  font-weight: 600;
+  line-height: 22px;
+  box-sizing: border-box;
+  background-color: #2d2d2d;
+  color: rgb(255, 255, 255);
+}
+
+.total h3 {
+  margin: 10;
+  color: #333;
+  color: rgb(255, 255, 255);
+}
+
+.total p {
+  font-size: 26px;
+  font-weight: bold;
+  color: #4CAF50;
+  margin: 20px 0 0;
+  color: rgb(255, 255, 255);
+}
+
+.warranty-price-input {
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.warranty-price-input input {
+  width: 60px;
+  height: 30px;
+  background-color: #2d2d2d;
+  color: white;
+  border: 1px solid #444;
+  padding: 0 8px;
+  font-size: 14px;
+  line-height: 30px;
+  box-sizing: border-box;
+}
+
+.warranty-price-input span {
+  color: #ccc;
+  margin: 0 4px;
+}
+
+.home-type-group {
+  margin-bottom: 20px;
+}
+
+.home-type-label {
+  font-size: 18px;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.home-type-options {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 8px 12px;
+  align-items: center;
+}
+
+.home-type-option input[type="radio"] {
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  outline: none;
+  cursor: pointer;
+  margin: 0;
+}
+
+.home-type-option input[type="radio"]:checked {
+  background-color: #ffffff;
+  box-shadow: inset 0 0 0 2px #2d2d2d;
+}
+
+.home-type-text {
+  color: #cccccc;
+  font-size: 14px;
+}
+
+.home-type-price {
+  color: #cccccc;
+  font-size: 14px;
+  justify-self: end;
+}
+
+.price-input-wrapper {
+  display: flex;
+  align-items: center;
+  width: 80px; /* Fixed width for consistency */
+}
+
+.price-input-wrapper input[type="number"] {
+  width: 50px;
+  margin: 0 5px;
+}
+
+.price-input-wrapper span {
+  margin-left: 5px;
+}
+
+.results-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #2a2a2a;
+  padding: 15px;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+.results {
+  margin-bottom: 15px;
+}
+
+.results p {
+  margin: 5px 0;
+  font-size: 16px;
+  color: #ffffff;
+}
+
+.results p:first-child {
+  margin-bottom: 10px;
+}
+
+.clear-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.clear-button:hover {
+  background-color: #0056b3;
+}
+
+.selected-adder .adder-input-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.selected-adder input[type="number"] {
+  width: 60px;
+  margin-right: 5px;
+}
+
+.selected-adder span {
+  margin-right: 10px;
+}
+
+.remove-adder {
+  background: none !important;
+  border: none;
+  color: white;
+  font-size: 1.2em;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 10px;
+  line-height: 1;
+}
+
+.remove-adder:hover {
+  color: #ff4d4d; /* Light red color on hover */
+}
+
+.adder-input-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.selected-adder input[type="number"] {
+  width: 60px;
+  margin-right: 5px;
+}
+
+.selected-adder span {
+  margin-right: 10px;
+}
+
+/* Add this new class */
+.horizontal-inputs {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+/* Modify the existing .input-group class */
+.input-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  justify-content: space-between;
+}
+
+/* Add this new class for the horizontal input groups */
+.horizontal-input-group {
+  width: 30%; /* Reduced from previous value */
+}
+
+.horizontal-input-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.horizontal-input-group input[type="number"] {
+  width: 100%;
+}
+
+/* Adders dropdown */
+.input-group:last-of-type select {
+  max-width: 100%; /* Full width for Adders dropdown */
+}
+
+/* Results container */
+.results-container {
+  background-color: #2a2a2a;
+  padding: 15px;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+.results {
+  margin-bottom: 15px;
+}
+
+.clear-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.clear-button:hover {
+  background-color: #0056b3;
+}

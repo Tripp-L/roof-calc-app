@@ -49,3 +49,28 @@
 .price-input button:hover {
   background-color: #e0e0e0;
 }
+
+.quantity-select {
+  width: 60px;
+  padding: 4px;
+  background-color: #333;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.quantity-select option {
+  background-color: #333;
+  color: white;
+}
+
+.quantity-container {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.quantity-container span {
+  color: white;
+  font-size: 14px;
+}

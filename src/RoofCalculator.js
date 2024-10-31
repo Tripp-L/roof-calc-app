@@ -4,7 +4,7 @@ import { debounce } from 'lodash'; // Make sure to install lodash
 
 const RoofCalculator = () => {
   const [pricePerSq, setPricePerSq] = useState('');  // Initialize to empty string
-  const [sqFt, setSqFt] = useState('');  // Keep this as empty string
+  const [sqFt, setSqFt] = useState('100');
   const [waste, setWaste] = useState('');  // Initialize to empty string
   const [pitch, setPitch] = useState('0-6');
   const [warranty, setWarranty] = useState('Golden Pledge');
@@ -19,6 +19,12 @@ const RoofCalculator = () => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [pitchPrice, setPitchPrice] = useState('0');
   const [selectedAdders, setSelectedAdders] = useState({});
+  const [customAdderName, setCustomAdderName] = useState('');
+  const [customAdderPrice, setCustomAdderPrice] = useState(0);
+  const [isCustomAdder, setIsCustomAdder] = useState(false);
+  const [selectedAdder, setSelectedAdder] = useState('');
+  const [customUnit, setCustomUnit] = useState('');
+  const [customQuantity, setCustomQuantity] = useState(1);
 
   // Define default values
   const defaultValues = {
@@ -74,6 +80,7 @@ const RoofCalculator = () => {
 
   const calculateTotal = () => {
     let total = 0;
+    const currentSquares = parseFloat(sqFt) / 100; // Convert sq ft to squares
     
     // Base calculation
     const baseSquares = Math.round(parseFloat(sqFt) / 100) || 0;
@@ -95,7 +102,33 @@ const RoofCalculator = () => {
       total += adderPrice * quantity;
     });
 
-    setTotalPrice(Math.round(total * 100) / 100); // Round to 2 decimal places
+    // Custom Adder calculations with quantity
+    if (isCustomAdder && customAdderPrice) {
+      const price = parseFloat(customAdderPrice);
+      const quantity = parseInt(customQuantity) || 1; // Default to 1 if invalid
+
+      switch (customUnit) {
+        case '/Each':
+          total += price * quantity;
+          break;
+        case '/Sq':
+          total += price * currentSquares * quantity;
+          break;
+        case '/Ft':
+          total += price * parseFloat(sqFt) * quantity;
+          break;
+        case 'Sq/Ft':
+          total += price * parseFloat(sqFt) * quantity;
+          break;
+        case '/Sheet':
+          total += price * (parseFloat(sqFt) / 32) * quantity;
+          break;
+        default:
+          break;
+      }
+    }
+
+    setTotalPrice(total);
     setSquares(adjustedSquares);
   };
 
@@ -112,7 +145,6 @@ const RoofCalculator = () => {
     const value = e.target.value;
     if (value === '' || (parseFloat(value) >= min && parseFloat(value) <= max)) {
       setter(value);
-      debouncedCalculate();
     }
   };
 
@@ -142,19 +174,30 @@ const RoofCalculator = () => {
   };
 
   const handleSqFtChange = useCallback((e) => {
-    handleNumericInput(e, setSqFt, 100, 100000);
-  }, []);
+    const value = e.target.value;
+    setSqFt(value);
+    debouncedCalculate();
+  }, [debouncedCalculate]);
 
   const handleSqFtBlur = () => {
-    if (sqFt === '') return;
-    let value = parseInt(sqFt);
+    let value = parseFloat(sqFt);
     if (isNaN(value) || value < 100) {
       setSqFt('100');
     } else if (value > 100000) {
       setSqFt('100000');
     } else {
-      setSqFt(value.toString());
+      setSqFt(Math.round(value).toString());
     }
+    calculateTotal();
+  };
+
+  // Add this new function to handle increment/decrement
+  const handleSqFtAdjust = (increment) => {
+    let value = parseInt(sqFt) || 0;
+    value += increment;
+    if (value < 100) value = 100;
+    if (value > 100000) value = 100000;
+    setSqFt(value.toString());
     calculateTotal();
   };
 
@@ -263,11 +306,15 @@ const RoofCalculator = () => {
 
   const handleAdderChange = (e) => {
     const selectedAdder = e.target.value;
-    if (selectedAdder !== 'none') {
+    setSelectedAdder(selectedAdder);
+    if (selectedAdder === 'custom') {
+      setIsCustomAdder(true);
+    } else if (selectedAdder !== 'none') {
       setSelectedAdders(prev => ({
         ...prev,
         [selectedAdder]: 1
       }));
+      setIsCustomAdder(false);
     }
     calculateTotal();
   };
@@ -302,6 +349,26 @@ const RoofCalculator = () => {
       delete newAdders[adderKey];
       return newAdders;
     });
+    calculateTotal();
+  };
+
+  const handleCustomAdderPrice = (e) => {
+    const value = e.target.value;
+    setCustomAdderPrice(value);
+    calculateTotal();
+  };
+
+  const handleCustomAdderName = (e) => {
+    setCustomAdderName(e.target.value);
+  };
+
+  const handleUnitChange = (e) => {
+    setCustomUnit(e.target.value);
+    calculateTotal();
+  };
+
+  const handleQuantityChange = (e) => {
+    setCustomQuantity(parseInt(e.target.value));
     calculateTotal();
   };
 
@@ -355,7 +422,6 @@ const RoofCalculator = () => {
             onBlur={handleSqFtBlur}
             min="100"
             max="100000"
-            step="1"
           />
         </div>
 
@@ -443,18 +509,69 @@ const RoofCalculator = () => {
         </div>
       </div>
 
-      <div className="input-group">
+      <div className="adders-section">
         <label>Adders</label>
-        <select value="none" onChange={handleAdderChange}>
-          <option value="none">Select an Adder</option>
-          {Object.entries(adderOptions).map(([key, { label, price, unit }]) => (
-            key !== 'none' && (
-              <option key={key} value={key}>
-                {`${label} ($${price}/${unit})`}
-              </option>
-            )
-          ))}
-        </select>
+        <div className="adders-container">
+          <select 
+            value={selectedAdder}
+            onChange={handleAdderChange}
+            className="adder-select"
+          >
+            <option value="none">Select an Adder</option>
+            {Object.entries(adderOptions).map(([key, { label }]) => (
+              key !== 'none' && <option key={key} value={key}>{label}</option>
+            ))}
+            <option value="custom">Custom Adder</option>
+          </select>
+          
+          {isCustomAdder && (
+            <div className="custom-adder-container">
+              <input
+                type="text"
+                placeholder="Adder Name"
+                value={customAdderName}
+                onChange={handleCustomAdderName}
+                className="custom-adder-name"
+              />
+              <div className="custom-adder-inputs">
+                <div className="price-input-group">
+                  <span>$</span>
+                  <input
+                    type="number"
+                    value={customAdderPrice}
+                    onChange={handleCustomAdderPrice}
+                    placeholder=""
+                    className="price-number-input"
+                  />
+                </div>
+                <select 
+                  value={customUnit}
+                  onChange={handleUnitChange}
+                  className="unit-select-compact"
+                >
+                  <option value=""></option>
+                  <option value="/Sq">/Sq</option>
+                  <option value="/Each">/Each</option>
+                  <option value="/Ft">/Ft</option>
+                  <option value="Sq/Ft">/Sq/Ft</option>
+                  <option value="/Sheet">/Sheet</option>
+                </select>
+                <div className="qty-input-group">
+                  <span>Qty:</span>
+                  <input
+                    type="number"
+                    value={customQuantity}
+                    onChange={(e) => setCustomQuantity(e.target.value)}
+                    min="1"
+                    max="1000"
+                    className="price-number-input"
+                    placeholder=""
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
 
       {Object.entries(selectedAdders).map(([adderKey, quantity]) => (

@@ -1,0 +1,89 @@
+.calculator {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.home-type-section {
+  margin-bottom: 20px;
+}
+
+.home-type-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.home-type-option label {
+  display: flex;
+  align-items: center;
+}
+
+.price-input {
+  display: flex;
+  align-items: center;
+}
+
+.price-input input {
+  width: 50px;
+  text-align: center;
+  margin: 0 5px;
+}
+
+.price-input button {
+  width: 30px;
+  height: 30px;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.price-input button:hover {
+  background-color: #e0e0e0;
+}
+
+.number-input-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.number-input-wrapper input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.number-input-wrapper input[type="number"]::-webkit-outer-spin-button,
+.number-input-wrapper input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.number-input-buttons {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.number-input-buttons button {
+  flex: 1;
+  width: 20px;
+  padding: 0;
+  font-size: 10px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.number-input-buttons button:hover {
+  background-color: #e0e0e0;
+}

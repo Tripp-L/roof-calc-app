@@ -1,0 +1,53 @@
+.calculator {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.home-type-section {
+  margin-bottom: 20px;
+}
+
+.home-type-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.home-type-option label {
+  display: flex;
+  align-items: center;
+}
+
+.price-input {
+  display: flex;
+  align-items: center;
+}
+
+.price-input input {
+  width: 50px;
+  text-align: center;
+  margin: 0 5px;
+}
+
+.price-input button {
+  width: 30px;
+  height: 30px;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.price-input button:hover {
+  background-color: #e0e0e0;
+}
+
+
